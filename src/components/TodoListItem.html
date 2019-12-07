@@ -1,0 +1,32 @@
+<v-list-item-group multiple>
+  <v-list-item>
+    <template>
+      <v-list-item-action>
+        <v-checkbox color="primary" v-model="item.isCompleted"></v-checkbox>
+      </v-list-item-action>
+
+      <v-list-item-content v-if="!isEdit" @click="setEdit()">
+        <v-list-item-title :class="{'todolist-complete': item.isCompleted}">{{
+          item.task
+        }}</v-list-item-title>
+        <v-list-item-subtitle>{{ createdAt }} </v-list-item-subtitle>
+      </v-list-item-content>
+      <v-list-item-content v-else>
+        <v-text-field
+          label="할일 수정"
+          v-model="task"
+          ref="inputEdit"
+          @focus="$event.target.select()"
+          @keyup.enter="updateTask()"
+          @blur="isEdit = false"
+        ></v-text-field>
+      </v-list-item-content>
+
+      <v-list-item-action>
+        <v-btn icon>
+          <v-icon @click="deleteTask()" color="red lighten-1">delete</v-icon>
+        </v-btn>
+      </v-list-item-action>
+    </template>
+  </v-list-item>
+</v-list-item-group>
