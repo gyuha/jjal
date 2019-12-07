@@ -1,22 +1,47 @@
 import { Component, Vue } from 'vue-property-decorator';
 import WithRender from './App.html';
 import getConfig from './_config';
-import {image_search} from 'duckduckgo-images-api';
+import { SmartQuery } from 'vue-apollo-decorator';
+import JJAL from '@/graphql/query/jjal.gql';
+
+interface IImages {
+  width: number;
+  height: number;
+  url: string;
+  thumbnail: string;
+  source: string;
+  image: string;
+}
 
 @WithRender
 @Component({
   props: {},
 })
 export default class App extends Vue {
-    private searchText:string = '';
-    get title() {
-        return getConfig().title;
+    @SmartQuery({
+        query: JJAL,
+        variables() {
+          return {
+            q: this.searchText,
+          };
+        },
+      })
+    private jjal!: IImages[];
+
+    private searchText: string = '';
+
+    private defaultJjal: string[] = [
+      '펭수', '최신', '유행', '개구리',
+    ];
+
+    get title(): string {
+      return getConfig().title;
     }
 
-    async getImages() {
-        console.log(this.searchText);
-        image_search({ query: this.searchText, moderate: true }).then(
-            results=>console.log(results)
-            );
+    private mounted() {
+      this.searchText = this.defaultJjal[
+        Math.floor(Math.random() * (this.defaultJjal.length - 1))
+      ];
     }
 }
+

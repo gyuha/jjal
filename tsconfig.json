@@ -24,6 +24,11 @@
       "dom",
       "dom.iterable",
       "scripthost"
+    ],
+    "skipLibCheck": true,
+    "typeRoots": [
+      "./src/typings",
+      "./node_modules/@types"
     ]
   },
   "include": [

@@ -16,7 +16,6 @@
         solo-inverted
         prepend-inner-icon="mdi-magnify"
         label="검색"
-        class="hidden-sm-and-down"
         v-model="searchText"
         @keyup.enter="getImages()"
       />
@@ -27,6 +26,7 @@
         class="fill-height"
         fluid
       >
+      {{ jjal }}
       </v-container>
     </v-content>
     </v-app>

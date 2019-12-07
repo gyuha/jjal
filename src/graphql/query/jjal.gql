@@ -1,0 +1,10 @@
+query Jjal($q: String!){
+  jjal(q: $q) {
+    width
+    height
+    title
+    thumbnail
+    image
+    url
+  }
+}
