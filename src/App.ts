@@ -1,9 +1,8 @@
+import Card from '@/components/Card';
+import { image_search_generator } from 'duckduckgo-images-api';
 import { Component, Vue } from 'vue-property-decorator';
 import WithRender from './App.html';
 import getConfig from './_config';
-import { SmartQuery } from 'vue-apollo-decorator';
-import JJAL from '@/graphql/query/jjal.gql';
-import Card from '@/components/Card';
 
 interface IImages {
   width: number;
@@ -22,30 +21,43 @@ interface IImages {
   },
 })
 export default class App extends Vue {
-    @SmartQuery({
-        query: JJAL,
-        variables() {
-          return {
-            q: this.searchText,
-          };
-        },
-      })
-    private jjal!: IImages[];
+  private images: IImages[] = [];
 
-    private searchText: string = '';
+  private searchText: string = '';
 
-    private defaultJjal: string[] = [
-      '펭수', '최신', '유행', '개구리',
+  private defaultJjal: string[] = [
+    '펭수', '최신', '유행', '개구리',
+  ];
+
+  get title(): string {
+    return getConfig().title;
+  }
+
+  private mounted() {
+    this.searchText = this.defaultJjal[
+      Math.floor(Math.random() * (this.defaultJjal.length - 1))
     ];
+    this.getImages();
+  }
 
-    get title(): string {
-      return getConfig().title;
+  private async getLocalImages() {
+     const images = await this.$http.get('//localhost:3000?q=' + this.searchText);
+     this.images = images.data;
+  }
+
+  private async getImages() {
+    if (process.env.NODE_ENV === 'development') {
+      this.getLocalImages();
+      return;
     }
 
-    private mounted() {
-      this.searchText = this.defaultJjal[
-        Math.floor(Math.random() * (this.defaultJjal.length - 1))
-      ];
+    this.images = [];
+    const query = '짤 ' + this.searchText;
+    for await (const resultSet of await image_search_generator({ query, moderate: true , iterations : 1})) {
+      // @ts-ignore
+      resultSet.forEach((element: Images) => {
+        this.images.push(element);
+      });
     }
+  }
 }
-
