@@ -26,7 +26,7 @@
         class="fill-height"
         fluid
       >
-      {{ jjal }}
+      <Card v-for="image, idx in jjal" :v-key="idx" :image="image"></Card>
       </v-container>
     </v-content>
     </v-app>

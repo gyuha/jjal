@@ -3,6 +3,7 @@ import WithRender from './App.html';
 import getConfig from './_config';
 import { SmartQuery } from 'vue-apollo-decorator';
 import JJAL from '@/graphql/query/jjal.gql';
+import Card from '@/components/Card';
 
 interface IImages {
   width: number;
@@ -16,6 +17,9 @@ interface IImages {
 @WithRender
 @Component({
   props: {},
+  components: {
+    Card,
+  },
 })
 export default class App extends Vue {
     @SmartQuery({

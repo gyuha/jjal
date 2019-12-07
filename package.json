@@ -6,7 +6,9 @@
     "start": "yarn serve",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "docker": "docker build -f \"Dockerfile\" -t gyuha/jjal .",
+    "docker:push": "docker push gyuha/jjal"
   },
   "dependencies": {
     "apollo-boost": "^0.4.4",
@@ -21,6 +23,7 @@
     "vue-apollo": "^3.0.2",
     "vue-apollo-decorator": "^0.11.3",
     "vue-class-component": "^7.1.0",
+    "vue-clipboard2": "^0.3.1",
     "vuetify": "^2.1.13"
   },
   "devDependencies": {
