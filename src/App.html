@@ -11,13 +11,18 @@
         label="검색"
         v-model="searchText"
         @keyup.enter="getImages()"
+        :disabled="this.$apollo.queries.jjal.loading"
+        clearable="true"
       />
       <v-spacer />
     </v-app-bar>
     <v-content>
       <v-container class="fill-height" fluid>
-        <Card v-for="image, idx in images" :v-key="idx" :image="image"></Card>
+        <Card v-for="image, idx in jjal" :v-key="idx" :image="image"></Card>
       </v-container>
+      <v-overlay :value="this.$apollo.queries.jjal.loading">
+        <v-progress-circular indeterminate size="64"></v-progress-circular>
+      </v-overlay>
     </v-content>
   </v-app>
 </div>
