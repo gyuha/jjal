@@ -17,7 +17,7 @@ const config: AppConfigTypes = {
   },
   production: {
     title: '짤',
-    apiUrl: '//endpoint.ainize.ai/gyuha/jjal-api/',
+    apiUrl: 'https://endpoint.ainize.ai/gyuha/jjal-api/',
   },
 };
 
