@@ -20,7 +20,7 @@
     "duckduckgo-images-api": "^1.0.4",
     "express": "^4.17.1",
     "graphql": "^14.5.8",
-    "lodash": "^4.17.14",
+    "lodash": "^4.17.19",
     "moment": "^2.24.0",
     "vue": "^2.6.10",
     "vue-apollo": "^3.0.2",
